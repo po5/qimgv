@@ -34,6 +34,7 @@ SettingsDialog::SettingsDialog(QWidget *parent) :
     ui->scalingQualityComboBox->addItem("Bilinear+sharpen (OpenCV)");
     ui->scalingQualityComboBox->addItem("Bicubic (OpenCV)");
     ui->scalingQualityComboBox->addItem("Bicubic+sharpen (OpenCV)");
+    ui->scalingQualityComboBox->addItem("Lanczos (OpenCV)");
 #endif
 
     setupSidebar();

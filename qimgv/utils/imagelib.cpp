@@ -151,10 +151,6 @@ QImage *ImageLib::cropped(QRect newRect, QRect targetRes, bool upscaled) {
 */
 
 QImage* ImageLib::scaled(std::shared_ptr<const QImage> source, QSize destSize, ScalingFilter filter) {
-#ifdef USE_OPENCV
-    if(filter > 1 && !QtOcv::isSupported(source->format()))
-        filter = QI_FILTER_BILINEAR;
-#endif
     switch (filter) {
         case QI_FILTER_NEAREST:
             return scaled_Qt(source, destSize, false);
@@ -167,6 +163,8 @@ QImage* ImageLib::scaled(std::shared_ptr<const QImage> source, QSize destSize, S
             return scaled_CV(source, destSize, cv::INTER_CUBIC, 0);
         case QI_FILTER_CV_CUBIC_SHARPEN:
             return scaled_CV(source, destSize, cv::INTER_CUBIC, 1);
+        case QI_FILTER_CV_LANCZOS:
+            return scaled_CV(source, destSize, cv::INTER_LANCZOS4, 0);
 #endif
         default:
             return scaled_Qt(source, destSize, true);
